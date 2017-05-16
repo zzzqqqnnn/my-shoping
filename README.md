@@ -19,3 +19,11 @@
 2. router-view占位
 
 3. mui实现底部tabbar
+
+## 首页轮播图
+
+1. main.js中更改路由规则
+
+2. Home.vue中使用mt-swipe组件
+
+3. 使用假数据填充图片
