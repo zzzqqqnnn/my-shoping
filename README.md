@@ -27,3 +27,13 @@
 2. Home.vue中使用mt-swipe组件
 
 3. 使用假数据填充图片
+
+## 使用vue-resource请求轮播图数据
+
+1. npm 安装vue-resource
+
+        npm install vue-resource --save
+
+2. main.js中导入vue-resource
+
+3. 在vue的生命周期created方法中使用$http请求数据
