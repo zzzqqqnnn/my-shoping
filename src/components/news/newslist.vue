@@ -4,35 +4,35 @@
     
             <!--静态界面-->
             <!--<li class="mui-table-view-cell mui-media">
-                    <a href="javascript:;">
-                        <img class="mui-media-object mui-pull-left" src="../../../statics/imgs/1.png">
-                        <div class="mui-media-body">
-                            幸福
-                            <p class='mui-ellipsis'>能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
-                        </div>
-                    </a>
-                </li>
-                <li class="mui-table-view-cell mui-media">
-                    <a href="javascript:;">
-                        <img class="mui-media-object mui-pull-left" src="../../../statics/imgs/2.png">
-                        <div class="mui-media-body">
-                            木屋
-                            <p class='mui-ellipsis'>想要这样一间小木屋，夏天挫冰吃瓜，冬天围炉取暖.</p>
-                        </div>
-                    </a>
-                </li>
-                <li class="mui-table-view-cell mui-media">
-                    <a href="javascript:;">
-                        <img class="mui-media-object mui-pull-left" src="../../../statics/imgs/3.png">
-                        <div class="mui-media-body">
-                            CBD
-                            <p class='mui-ellipsis'>烤炉模式的城，到黄昏，如同打翻的调色盘一般.</p>
-                        </div>
-                    </a>
-                </li>-->
+                            <a href="javascript:;">
+                                <img class="mui-media-object mui-pull-left" src="../../../statics/imgs/1.png">
+                                <div class="mui-media-body">
+                                    幸福
+                                    <p class='mui-ellipsis'>能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="mui-table-view-cell mui-media">
+                            <a href="javascript:;">
+                                <img class="mui-media-object mui-pull-left" src="../../../statics/imgs/2.png">
+                                <div class="mui-media-body">
+                                    木屋
+                                    <p class='mui-ellipsis'>想要这样一间小木屋，夏天挫冰吃瓜，冬天围炉取暖.</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="mui-table-view-cell mui-media">
+                            <a href="javascript:;">
+                                <img class="mui-media-object mui-pull-left" src="../../../statics/imgs/3.png">
+                                <div class="mui-media-body">
+                                    CBD
+                                    <p class='mui-ellipsis'>烤炉模式的城，到黄昏，如同打翻的调色盘一般.</p>
+                                </div>
+                            </a>
+                        </li>-->
     
             <li v-for="item in list" class="mui-table-view-cell mui-media">
-                <a href="javascript:;">
+                <router-link v-bind="{to:'/news/newsinfo/'+item.id}">
                     <img class="mui-media-object mui-pull-left" :src="item.img_url">
                     <div class="mui-media-body">
                         {{item.title}}
@@ -42,7 +42,7 @@
                             <span class="click">点击数:{{item.click}}</span>
                         </div>
                     </div>
-                </a>
+                </router-link>
             </li>
     
         </ul>
@@ -97,12 +97,12 @@ export default {
             const url = 'http://webhm.top:8899/api/getnewslist';
 
             // 2.0 利用$http.get请求数据
-            this.$http.get(url).then(function(response){
+            this.$http.get(url).then(function (response) {
                 // 3.0 获取返回的数据
                 var body = response.body;
 
                 // 4.0 判断响应报文中的状态码，如果是非0则提示用户请求异常
-                if(body.status != 0){
+                if (body.status != 0) {
                     Toast(body.message);
                     return;
                 }
@@ -116,23 +116,23 @@ export default {
 </script>
 
 <style scoped>
-    .mui-table-view img{
-        width: 80px;
-        height: 80px;
-    }
+.mui-table-view img {
+    width: 80px;
+    height: 80px;
+}
 
-    .mui-table-view .mui-media-object{
-        max-width: 80px;
-        line-height: 80px;
-    }
+.mui-table-view .mui-media-object {
+    max-width: 80px;
+    line-height: 80px;
+}
 
-    .ft{
-        margin-top: 1.5em;
-        font-size: 14px;
-        color: #0094ff;
-    }
+.ft {
+    margin-top: 1.5em;
+    font-size: 14px;
+    color: #0094ff;
+}
 
-    .ft .click{
-        margin-left: 20px;
-    }
+.ft .click {
+    margin-left: 20px;
+}
 </style>

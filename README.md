@@ -80,3 +80,25 @@
 4. newslist.vue中使用日期过滤器
 
         <span>发表时间:{{item.add_time | datefmt('YYYY-MM-DD HH:mm:ss')}}</span>
+
+## 实现跳转新闻资讯详情页面及传参
+
+1. 在main.js中添加路由规则
+
+        {path:'/news/newsinfo/:id',component:newsinfo}
+
+2. 修改新闻列表界面中的a标签为router-link
+
+        <router-link to='/news/newsinfo/13'>
+
+3. 配置跳转参数
+
+        <router-link v-bind="{to:'/news/newslist/'+item.id}">
+
+4. 实现页面传参
+
+        created() {
+                // 获取URL传入的参数id赋值给data中的id属性
+                this.id = this.$route.params.id;
+        }
+
