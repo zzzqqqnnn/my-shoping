@@ -109,3 +109,13 @@
 2. 请求真实数据
 
 3. 使用vue指令赋值真实数据
+
+## 公共功能提取-API根域名提取
+
+1. 将根域名存放到common.js中
+
+        export default{
+                apidomain:'http://webhm.top:8899', // 所有数据请求的根域名地址
+        }
+
+2. 导入common.js使用

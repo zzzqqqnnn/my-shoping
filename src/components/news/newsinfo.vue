@@ -5,12 +5,14 @@
             <p>{{info.add_time | datefmt('YYYY-MM-DD')}} {{info.click}}次浏览</p>
         </div>
         <div id="content" v-html="info.content">
-
+    
         </div>
     </div>
 </template>
 <script>
 import { Toast } from 'mint-ui';
+import common from '../../kits/common.js';
+
 export default {
     data() {
         return {
@@ -28,7 +30,7 @@ export default {
     methods: {
         getinfo() {
             // 1.0 定义URL
-            const url = 'http://webhm.top:8899/api/getnew/' + this.id;
+            const url = common.apidomain + '/api/getnew/' + this.id;
 
             // 2.0 发送请求获取数据
             this.$http.get(url).then(function (response) {

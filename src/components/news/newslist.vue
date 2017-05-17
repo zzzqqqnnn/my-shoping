@@ -4,32 +4,32 @@
     
             <!--静态界面-->
             <!--<li class="mui-table-view-cell mui-media">
-                            <a href="javascript:;">
-                                <img class="mui-media-object mui-pull-left" src="../../../statics/imgs/1.png">
-                                <div class="mui-media-body">
-                                    幸福
-                                    <p class='mui-ellipsis'>能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="mui-table-view-cell mui-media">
-                            <a href="javascript:;">
-                                <img class="mui-media-object mui-pull-left" src="../../../statics/imgs/2.png">
-                                <div class="mui-media-body">
-                                    木屋
-                                    <p class='mui-ellipsis'>想要这样一间小木屋，夏天挫冰吃瓜，冬天围炉取暖.</p>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="mui-table-view-cell mui-media">
-                            <a href="javascript:;">
-                                <img class="mui-media-object mui-pull-left" src="../../../statics/imgs/3.png">
-                                <div class="mui-media-body">
-                                    CBD
-                                    <p class='mui-ellipsis'>烤炉模式的城，到黄昏，如同打翻的调色盘一般.</p>
-                                </div>
-                            </a>
-                        </li>-->
+                                <a href="javascript:;">
+                                    <img class="mui-media-object mui-pull-left" src="../../../statics/imgs/1.png">
+                                    <div class="mui-media-body">
+                                        幸福
+                                        <p class='mui-ellipsis'>能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="mui-table-view-cell mui-media">
+                                <a href="javascript:;">
+                                    <img class="mui-media-object mui-pull-left" src="../../../statics/imgs/2.png">
+                                    <div class="mui-media-body">
+                                        木屋
+                                        <p class='mui-ellipsis'>想要这样一间小木屋，夏天挫冰吃瓜，冬天围炉取暖.</p>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="mui-table-view-cell mui-media">
+                                <a href="javascript:;">
+                                    <img class="mui-media-object mui-pull-left" src="../../../statics/imgs/3.png">
+                                    <div class="mui-media-body">
+                                        CBD
+                                        <p class='mui-ellipsis'>烤炉模式的城，到黄昏，如同打翻的调色盘一般.</p>
+                                    </div>
+                                </a>
+                            </li>-->
     
             <li v-for="item in list" class="mui-table-view-cell mui-media">
                 <router-link v-bind="{to:'/news/newsinfo/'+item.id}">
@@ -52,6 +52,7 @@
 <script>
 
 import { Toast } from 'mint-ui';
+import common from '../../kits/common.js';
 
 export default {
     data() {
@@ -94,7 +95,7 @@ export default {
             ]*/
 
             // 1.0 确定URL
-            const url = 'http://webhm.top:8899/api/getnewslist';
+            const url = common.apidomain + '/api/getnewslist';
 
             // 2.0 利用$http.get请求数据
             this.$http.get(url).then(function (response) {

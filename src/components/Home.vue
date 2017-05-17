@@ -3,8 +3,8 @@
         <!--1.0 利用mint-ui的mt-swipe组件实现轮播图-->
         <mt-swipe :auto='2000'>
             <!--<mt-swipe-item>1</mt-swipe-item>
-                            <mt-swipe-item>2</mt-swipe-item>
-                            <mt-swipe-item>3</mt-swipe-item>-->
+                                <mt-swipe-item>2</mt-swipe-item>
+                                <mt-swipe-item>3</mt-swipe-item>-->
             <mt-swipe-item v-for="item in list">
                 <img :src='item.img'>
             </mt-swipe-item>
@@ -59,6 +59,8 @@
 // 使用 mint-ui 中的 Toast组件实现弹窗效果
 import { Toast } from 'mint-ui';
 
+import common from '../kits/common.js'
+
 export default {
     data() {
         return {
@@ -73,7 +75,7 @@ export default {
         getImgs() {
             // 实现轮播组件中的数据请求
             // 1.0 确定URL
-            const url = 'http://webhm.top:8899/api/getlunbo';
+            const url = common.apidomain + '/api/getlunbo';
             // 2.0 发送get请求 $http.get()
             this.$http.get(url).then(function (response) {
                 const data = response.body;
@@ -108,48 +110,55 @@ export default {
     display: block;
 }
 
-.mui-content,.mui-content ul {
+.mui-content,
+.mui-content ul {
     background-color: #fff;
 }
 
-.mui-grid-view.mui-grid-9 .mui-table-view-cell{
-		border-right:0px;
-		border-bottom:0px; 
-	}
-	.mui-grid-view.mui-grid-9{
-		border-top:0px;
-		border-left:0px; 
-	}
-	.mui-icon-home:before,
-	.mui-icon-email:before,
-	.mui-icon-chatbubble:before,
-	.mui-icon-location:before,
-	.mui-icon-search:before,
-	.mui-icon-phone:before{
-		content: '';
-		display: inline-block;
-		width: 50px;
-		height: 50px;
-		background-repeat: round;
-	}
-	
-	.mui-icon-home:before{		
-		background-image: url(../../statics/imgs/1.png);
-	}
+.mui-grid-view.mui-grid-9 .mui-table-view-cell {
+    border-right: 0px;
+    border-bottom: 0px;
+}
 
-	.mui-icon-email:before{		
-		background-image: url(../../statics/imgs/2.png);		
-	}
-	.mui-icon-chatbubble:before{		
-		background-image: url(../../statics/imgs/3.png);		
-	}
-	.mui-icon-location:before{		
-		background-image: url(../../statics/imgs/4.png);		
-	}
-	.mui-icon-search:before{		
-		background-image: url(../../statics/imgs/5.png);		
-	}
-	.mui-icon-phone:before{		
-		background-image: url(../../statics/imgs/6.png);		
-	}
+.mui-grid-view.mui-grid-9 {
+    border-top: 0px;
+    border-left: 0px;
+}
+
+.mui-icon-home:before,
+.mui-icon-email:before,
+.mui-icon-chatbubble:before,
+.mui-icon-location:before,
+.mui-icon-search:before,
+.mui-icon-phone:before {
+    content: '';
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    background-repeat: round;
+}
+
+.mui-icon-home:before {
+    background-image: url(../../statics/imgs/1.png);
+}
+
+.mui-icon-email:before {
+    background-image: url(../../statics/imgs/2.png);
+}
+
+.mui-icon-chatbubble:before {
+    background-image: url(../../statics/imgs/3.png);
+}
+
+.mui-icon-location:before {
+    background-image: url(../../statics/imgs/4.png);
+}
+
+.mui-icon-search:before {
+    background-image: url(../../statics/imgs/5.png);
+}
+
+.mui-icon-phone:before {
+    background-image: url(../../statics/imgs/6.png);
+}
 </style>
