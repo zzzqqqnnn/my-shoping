@@ -37,3 +37,11 @@
 2. main.js中导入vue-resource
 
 3. 在vue的生命周期created方法中使用$http请求数据
+
+## 使用MUI布局首页九宫格导航
+
+1. 使用MUI九宫格组件布局导航
+
+2. 替换导航中的默认图片
+
+3. 更改a标签为router-link实现路由跳转
