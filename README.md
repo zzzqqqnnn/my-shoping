@@ -45,3 +45,17 @@
 2. 替换导航中的默认图片
 
 3. 更改a标签为router-link实现路由跳转
+
+## 使用MUI实现新闻列表界面
+
+1. 在main.js中添加路由规则
+
+        {path:'/news/newslist',component:newslist}
+
+2. 利用MUI图文列表组件实现新闻列表布局
+
+3. 使用vue-resource请求新闻列表真实数据
+
+4. 使用v-for循环渲染界面
+
+5. 添加样式美化列表
