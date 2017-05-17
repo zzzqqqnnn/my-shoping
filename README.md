@@ -59,3 +59,24 @@
 4. 使用v-for循环渲染界面
 
 5. 添加样式美化列表
+
+## 使用全局过滤器和moment.js实现日期格式化
+
+1. main.js中注册全局过滤器
+
+        Vue.filter('datefmt',function(input,fmtstring){}
+
+2. 安装moment
+
+        npm install moment --save
+
+3. 使用moment格式化时间
+
+        Vue.filter('datefmt',function(input,fmtstring){
+                // 使用momentjs这个日期格式化类库实现日期的格式化功能
+                return moment(input).format(fmtstring);
+        })
+
+4. newslist.vue中使用日期过滤器
+
+        <span>发表时间:{{item.add_time | datefmt('YYYY-MM-DD HH:mm:ss')}}</span>

@@ -42,6 +42,13 @@ import '../statics/css/site.css';
 import vueResource from 'vue-resource';
 Vue.use(vueResource);
 
+// 8.0 定义一个全局过滤器实现日期格式化
+import moment from 'moment';
+Vue.filter('datefmt',function(input,fmtstring){
+	// 使用momentjs这个日期格式化类库实现日期的格式化功能
+	return moment(input).format(fmtstring);
+})
+
 // 利用Vue对象进行解析渲染
 new Vue({
 	el:'#app',
