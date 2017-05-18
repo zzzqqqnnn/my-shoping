@@ -24,6 +24,9 @@
                 </ul>
             </div>
         </div>
+    
+        <!--3.0 实现获取更多按钮-->
+        <mt-button type="danger" size="large" plain @click="getmore">加载更多</mt-button>
     </div>
 </template>
 <script>
@@ -34,31 +37,14 @@ export default {
     props: ['id'],//用来接收父组件传递过来的值
     data() {
         return {
+            pageindex: 1,
             postcontent: '',  //用来自动获取用户填写的评论内容
             list: []  //评论数据的数组
         };
     },
     created() {
-        // 静态数据
-        // this.list = [
-        //     {
-        //         "user_name": "匿名用户",
-        //         "add_time": "2017-05-10T01:08:16.000Z",
-        //         "content": " 满意度um"
-        //     },
-        //     {
-        //         "user_name": "匿名用户",
-        //         "add_time": "2017-05-08T06:32:40.000Z",
-        //         "content": "undefined"
-        //     },
-        //     {
-        //         "user_name": "匿名用户",
-        //         "add_time": "2017-05-08T06:23:57.000Z",
-        //         "content": "undefined"
-        //     }
-        // ]
         // 获取当前资讯数据的评论信息列表
-        this.getcommentlist(1);
+        this.getcommentlist(this.pageindex);
     },
     methods: {
         //1.0 评论数据的提交
@@ -94,6 +80,14 @@ export default {
                 this.list = this.list.concat(res.body.message);
             });
         },
+        // 3.0 实现加载更多的方法
+        getmore() {
+            // 1.0 实现this.pageindex值的增加1
+            this.pageindex++;
+
+            // 2.0 获取当前this.pageindex值对应的分页数据
+            this.getcommentlist(this.pageindex);
+        }
     }
 }
 </script>
@@ -109,10 +103,6 @@ export default {
     width: 100%;
     border-bottom: 1px solid rgba(0, 0, 0, 0.3);
 }
-
-
-
-
 
 /*2.0 评论列表的样式*/
 

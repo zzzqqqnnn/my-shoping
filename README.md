@@ -152,3 +152,14 @@
 2. 请求真实数据赋值给list
 
 3. v-for渲染数据到界面
+
+
+## 评论组件-点击加载更多功能
+
+1. 定义全局变量pageindex,点击加载更多时pageindex++
+
+2. 传入pageindex重新发送数据请求
+
+3. 进行数据拼接:将新数据和旧数据拼接到一个数组中
+
+         this.list = this.list.concat(res.body.message);
