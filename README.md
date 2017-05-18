@@ -163,3 +163,17 @@
 3. 进行数据拼接:将新数据和旧数据拼接到一个数组中
 
          this.list = this.list.concat(res.body.message);
+
+## 优化-默认显示home及最新评论在前功能
+
+1. 添加路由规则重定向根目录为home页面
+
+        {path:'/',redirect:'/home'},// 默认进入home页面(将跟页面重定向到首页home)
+
+2. 将最新添加的数据追加到数组最前面
+
+        this.list = [{
+                "user_name": "匿名用户",
+                "add_time": new Date(),
+                "content": this.postcontent
+        }].concat(this.list);

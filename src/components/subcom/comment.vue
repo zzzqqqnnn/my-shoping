@@ -61,7 +61,14 @@ export default {
             this.$http.post(url, { content: this.postcontent }, { emulateJSON: true }).then(function (res) {
                 Toast(res.body.message);
 
-                //3.0 将文本框中的评论内容清空
+                // 3.0 将最新的评论数据追加到评论列表的最顶部
+                this.list = [{
+                    "user_name": "匿名用户",
+                    "add_time": new Date(),
+                    "content": this.postcontent
+                }].concat(this.list);
+                
+                //4.0 将文本框中的评论内容清空
                 this.postcontent = '';
             });
         },
@@ -103,6 +110,7 @@ export default {
     width: 100%;
     border-bottom: 1px solid rgba(0, 0, 0, 0.3);
 }
+
 
 /*2.0 评论列表的样式*/
 
