@@ -177,3 +177,21 @@
                 "add_time": new Date(),
                 "content": this.postcontent
         }].concat(this.list);
+
+## 图片分享列表-跳转及页面样式
+
+1. `router-link`设置跳转路径
+
+        <router-link to="/photo/photolist">
+
+2. main.js中设置路径规则
+
+- 导入photolist组件
+
+        import photolist from './components/photo/photolist.vue'
+        
+- 设置路由规则
+
+        {path:'/photo/photolist',component:photolist}
+
+3. 布局及书写分类样式
