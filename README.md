@@ -246,3 +246,34 @@
 2. 使用封装的评论组件布局评论模块
 
 3. 请求图片详情数据
+
+## 图片分享详情-vue-preview实现缩略图预览
+
+1. 安装`vue-preview`
+
+        npm install vue-preview --save
+
+2. `main.js`中注册`vue-preview`到vue对象中
+
+        import VuePreview from 'vue-preview';
+        Vue.use(VuePreview);
+
+3. `webpack.config.js`中添加`babel`转码
+
+        {
+            test: /vue-preview.src.*?js$/,  // vue-preivew组件专用
+            loader: 'babel'
+        }
+
+4. `url-loader`添加`svg`文件格式支持
+
+        {
+            test: /\.(png|jpg|gif|ttf|svg)$/,
+            loader:'url-loader?limit=20000'
+        }
+
+5. 更改图片配置
+
+        <img class="preview-img"  v-for="(item, index) in list" :src="item.src" height="100" @click="$preview.open(index, list)">
+
+6. 在`list`中添加数据
