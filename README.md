@@ -217,3 +217,24 @@
 3. 请求真实图片数据
 
 4. 给分类选项绑定点击事件
+
+## 图片分享详情-点击图片跳转到详情
+
+1. 使用`router-link`包装图片
+
+        <router-link v-bind="{to:'/photo/photoinfo/'+item.id}">
+
+2. 设置跳转的路由规则
+
+- 建立`photoinfo.vue`组件
+- 导入`photoinfo.vue`
+
+        import photoinfo from './components/photo/photoinfo.vue';
+
+- 配置路由规则
+
+        {path:'/photo/photoinfo/:id',component:photoinfo}
+
+3. 获取路由传递的id值
+
+        this.id = this.$route.params.id;
