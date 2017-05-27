@@ -5,7 +5,7 @@
             <!--<mt-swipe-item>1</mt-swipe-item>
                                 <mt-swipe-item>2</mt-swipe-item>
                                 <mt-swipe-item>3</mt-swipe-item>-->
-            <mt-swipe-item v-for="item in list">
+            <mt-swipe-item v-for="(item,index) in list" :key='index'>
                 <img :src='item.img'>
             </mt-swipe-item>
         </mt-swipe>
