@@ -195,3 +195,13 @@
         {path:'/photo/photolist',component:photolist}
 
 3. 布局及书写分类样式
+
+## 图片分享列表-请求分类真实数据
+
+1. `v-for`循环渲染
+
+        <li v-for="item in cates">{{item.title}}</li>
+
+2. 请求真实数据存放到`cates`数组中
+
+3. 根据`cates`长度及每一个li的宽度动态计算ul的宽度
