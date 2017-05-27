@@ -14,9 +14,8 @@
 			<!--缩略图-->
 			<div class="mui-content">
 				<ul class="mui-table-view mui-grid-view mui-grid-9">
-					<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-						<img class="preview-img"  v-for="(item, index) in list" :src="item.src" height="100" @click="$preview.open(index, list)"
-								 >
+					<li v-for="(item, index) in list" class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+						<img class="preview-img"  :src="item.src" height="100" @click="$preview.open(index, list)">
 					</li>
 				</ul>
 			</div>
@@ -46,23 +45,27 @@
 				id:0,  //图片的id
 				photoinfo :{},
                 list :[
-					{
-						src: 'https://placekitten.com/600/400',
-						w: 600,
-						h: 400
-					}, {
-						src: 'https://placekitten.com/1200/900',
-						w: 1200,
-						h: 900
-					}
+					// {
+					// 	src: 'https://placekitten.com/600/400',
+					// 	w: 600,
+					// 	h: 400
+					// }, {
+					// 	src: 'https://placekitten.com/1200/900',
+					// 	w: 1200,
+					// 	h: 900
+					// }
 				]
             }
 		},
 		created(){
 			this.id = this.$route.params.id;
 
-            // ajax请求图片的详情数据
+            // 1.0 请求图片的详情数据
 			this.getinfo();
+
+			// 2.0 请求缩略图数据
+			this.getimgs();
+
 		},
 		methods:{
             // 1.0  获取图片详情描述数据
@@ -79,7 +82,29 @@
                     // 将正常的逻辑数据赋值给this.photoinfo对象
 					this.photoinfo = body.message[0];
 				});
-			}
+			},
+			// 2.0 获取缩略图数据
+			getimgs(){
+				var url = common.apidomain + '/api/getthumimages/'+this.id;
+				this.$http.get(url).then(function(res){
+					var body = res.body;
+					if(body.status != 0 ){
+						Toast(body.message);
+						return;
+					}
+					// 将正常的逻辑数据赋值给this.list数组
+					// 由于vue-preview组件要求的数据是 {src:,w:,h:}但是服务器响应回来的数据中是没有 w ,h 的，所以只能自己添加了
+					body.message.forEach(function(item){
+					// 当前所有图片不管有多大都设置为宽高为400，就会导致图片失真了，所以应该按照图片的实际尺寸来设置
+						var img = document.createElement('img');
+						img.src = item.src;
+						item.h = img.height;
+						item.w = img.width;
+					});
+					this.list = body.message;
+				});
+
+			},
 		}
 	}
 

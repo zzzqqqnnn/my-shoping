@@ -277,3 +277,22 @@
         <img class="preview-img"  v-for="(item, index) in list" :src="item.src" height="100" @click="$preview.open(index, list)">
 
 6. 在`list`中添加数据
+
+## 图片分享详情-请求真实数据
+
+1. 将`v-for`放到li标签上适配样式
+
+        <li v-for="(item, index) in list" class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+                <img class="preview-img"  :src="item.src" height="100" @click="$preview.open(index, list)">
+        </li>
+
+2. 请求真实数据
+
+3. 重新组装数据格式(添加图片的宽高属性)
+
+        // 图片对象必须有宽高属性才能预览大图,所以需要对请求回来的数据添加w h属性
+        {
+            src: 'https://placekitten.com/1200/900',
+            w: 600,
+            h: 400
+        }
