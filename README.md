@@ -434,3 +434,42 @@
 
         - 使用子组件
         <inputnumber v-on:dataobj="getcount" class="inputnumber"></inputnumber> 
+
+## 商品详情-加入购物车同步角标数字
+
+> 因为购物车数量`inputNumber`在`goodsinfo.vue`组件中,而角标在`App.vue`组件中,两者不是父子组件关系,无法直接传值。父子组件能够传值正是因为共享了同一个`vue`实例对象,所以需要额外定义一个公共的`vue`实例实现子组件向父组件传值的方式将数据传递到`App.vue`中。
+
+1. 定义`vm.js`文件导出一个空的`vue`实例
+
+        import Vue from 'Vue';
+
+        // 导出一个常量
+        export const COUNTSTR = 'inputNumberCount';
+        // 导出空的vue实例
+        export var vm = new Vue();
+
+2. `goodsinfo.vue`中定义方法使用该公共实例传递数据
+
+        // 导入公共实例
+        import {vm,COUNTSTR} from './kits/vm.js';
+        ...
+        toshopcar(){
+                // 触发事件 COUNTSTR代表事件名 是vm.js中定义的常量
+                vm.$emit(COUNTSTR,this.inputNumberCount);
+        }
+
+3. `App.vue`中使用该公共实例获取数据
+
+        // 导入公共实例
+        import {vm,COUNTSTR} from './kits/vm.js';
+
+	// 利用 vm.$on() 来注册 COUNTSTR这个常量代表的事件
+        vm.$on(COUNTSTR,function(count){
+                // 将count值追加到购物车中
+                var badgeobj = document.querySelector('#badge');
+                badgeobj.innerText = parseInt(badgeobj.innerText) + count;
+        });
+
+4. 点击购物车时触发`toshopcar`方法将数据传递到`App.vue`
+
+        <mt-button type="danger" size="small" @click="toshopcar">加入购物车</mt-button>

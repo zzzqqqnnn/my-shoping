@@ -18,7 +18,7 @@
 				</li>
 				<li>
 					<mt-button type="primary" size="small">立即购买</mt-button>
-					<mt-button type="danger" size="small">加入购物车</mt-button>
+					<mt-button type="danger" size="small" @click="toshopcar">加入购物车</mt-button>
 				</li>
 			</ul>
 		</div>
@@ -52,6 +52,9 @@
     import inputnumber from '../subcom/inputNumber.vue';
     import { Toast } from 'mint-ui';
 
+    //	使用vm对象
+	import {vm,COUNTSTR} from '../../kits/vm.js';
+
 	export default{
         components:{silder,inputnumber},
 		data(){
@@ -69,6 +72,12 @@
             this.getinfo();
 		},
 		methods:{
+            // 加入购物车方法
+			toshopcar(){
+                //	触发事件
+				vm.$emit(COUNTSTR,this.inputNumberCount);
+			},
+
             // 获取inputnumber组件中传入的值
 			getcount(count){
 				this.inputNumberCount = count;
