@@ -296,3 +296,18 @@
             w: 600,
             h: 400
         }
+
+## 商品购买路由跳转及静态结构
+
+1. `Home.vue`中设置跳转路径
+
+        <router-link to="/goods/goodslist">
+
+2. `main.js`中设置路由规则
+
+        {path:'/goods/goodslist',component:goodslist}
+
+3. 利用mui中的图文表格组件实现：
+        
+        http://www.dcloud.io/hellomui/examples/slider-table-default.html
+	
