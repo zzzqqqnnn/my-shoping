@@ -463,7 +463,7 @@
         // 导入公共实例
         import {vm,COUNTSTR} from './kits/vm.js';
 
-	// 利用 vm.$on() 来注册 COUNTSTR这个常量代表的事件
+        // 利用 vm.$on() 来注册 COUNTSTR这个常量代表的事件
         vm.$on(COUNTSTR,function(count){
                 // 将count值追加到购物车中
                 var badgeobj = document.querySelector('#badge');
@@ -473,3 +473,14 @@
 4. 点击购物车时触发`toshopcar`方法将数据传递到`App.vue`
 
         <mt-button type="danger" size="small" @click="toshopcar">加入购物车</mt-button>
+
+## 商品详情-使用localStorage存储购物数量
+
+1. 定义本地存储公共帮助文件
+
+        // 实现添加获取删除
+        export function setItem(value){}
+        export function getItem(){}
+        export function removeItem(){}
+
+2. 点击加入购物车时调用`setItem()`存储数据

@@ -54,6 +54,7 @@
 
     //	使用vm对象
 	import {vm,COUNTSTR} from '../../kits/vm.js';
+	import {setItem,valueObj} from '../../kits/localSg.js'
 
 	export default{
         components:{silder,inputnumber},
@@ -74,8 +75,12 @@
 		methods:{
             // 加入购物车方法
 			toshopcar(){
-                //	触发事件
+                // 1.0触发事件
 				vm.$emit(COUNTSTR,this.inputNumberCount);
+				// 2.0 将数据保存到localStroage中
+				valueObj.goodsid = this.id;
+				valueObj.count = this.inputNumberCount;
+				setItem(valueObj);
 			},
 
             // 获取inputnumber组件中传入的值
