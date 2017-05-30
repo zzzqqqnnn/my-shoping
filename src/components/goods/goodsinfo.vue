@@ -15,6 +15,11 @@
 				</li>
                 <li class="inputli">
 					购买数量： <inputnumber v-on:dataobj="getcount" class="inputnumber"></inputnumber>
+					<transition name="show"
+					 @before-enter="beforeEnter" @enter="enter" @after-enter="afterEnter"
+					>
+						<div v-if="isshow" class="ball"></div>
+					</transition>
 				</li>
 				<li>
 					<mt-button type="primary" size="small">立即购买</mt-button>
@@ -61,6 +66,7 @@
 		data(){
 			return {
 				id : 0,  //表示商品id
+				isshow :false , //控制小球的显示状态
                 inputNumberCount:1, //表示当前购买商品的数量
 				imgs:[],
                 info:{}
@@ -77,10 +83,14 @@
 			toshopcar(){
                 // 1.0触发事件
 				vm.$emit(COUNTSTR,this.inputNumberCount);
+
 				// 2.0 将数据保存到localStroage中
 				valueObj.goodsid = this.id;
 				valueObj.count = this.inputNumberCount;
 				setItem(valueObj);
+
+				//3.0 实现小球动画
+				this.isshow = !this.isshow;
 			},
 
             // 获取inputnumber组件中传入的值
@@ -112,7 +122,26 @@
 					}
 				    this.imgs =res.body.message;
 				});
-			}
+			},
+			// 实现动画出现的方法
+			beforeEnter(el){
+			// 设定小球的初始位置
+				el.style.transform = "translate(0px,0px)";
+			},
+			enter(el,done){
+				//	保证小球出现动画
+				el.offsetWidth;
+
+				//	设置小球的结束位置
+				el.style.transform = "translate(75px,366px)";
+
+				//结束动画
+				done();
+			},
+			afterEnter(el){
+				//重置小球的初始状态
+				this.isshow = !this.isshow;
+			},
 		}
 	}
 
@@ -163,5 +192,17 @@
     position: absolute;
     left:100px;
     top:5px;
+}
+
+.ball{
+	background-color: red;
+	height: 20px;
+	width: 20px;
+	border-radius: 50%;
+	position: absolute;
+	left:150px;
+	top:10px;
+	transition: all 0.4s ease;
+	z-index: 100;
 }
 </style>

@@ -484,3 +484,35 @@
         export function removeItem(){}
 
 2. 点击加入购物车时调用`setItem()`存储数据
+
+## 商品详情-购物车小球动画效果
+
+1. 书写小球样式
+
+2. 设定需要动画的元素
+
+        <transition name="show" @before-enter="beforeEnter" @enter="enter" @after-enter="afterEnter">
+                <div v-if="isshow" class="ball"></div>
+        </transition>
+
+3. 使用动画钩子函数实现小球出现动画
+
+        // 动画出现前
+        beforeEnter(el){
+                // 设定小球的初始位置
+                el.style.transform = "translate(0px,0px)";
+        },
+        // 动画出现
+        enter(el,done){
+                // 保证小球出现动画
+                el.offsetWidth;
+                // 设置小球的结束位置
+                el.style.transform = "translate(75px,366px)";
+                //结束动画
+                done();
+        },
+        // 动画结束
+        afterEnter(el){
+                //重置小球的初始状态
+                this.isshow = !this.isshow;
+        }
