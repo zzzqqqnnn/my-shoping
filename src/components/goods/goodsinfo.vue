@@ -36,7 +36,9 @@
 		<!--3.0 图文详情-->
 		<!--4.0 商品评论-->
 		<div id="other">
-			<mt-button class="imgdesc" type="primary" size="large">图文详情</mt-button>
+			<router-link v-bind="{to:'/goods/goodsdesc/'+id}">
+			    <mt-button class="imgdesc" type="primary" size="large">图文详情</mt-button>
+			</router-link>
 			<mt-button type="danger" size="large">商品评论</mt-button>
 		</div>
 	</div>

@@ -361,3 +361,21 @@
 1. 根据`API`请求真实数据
 
 2. 完善请求中的判断数据状态
+
+## 商品详情-图文详情页面
+
+1. `goodsinfo.vue`中设置路由跳转路径
+
+        <router-link v-bind="{to:'/goods/goodsdesc/'+id}">
+                <mt-button class="imgdesc" type="primary" size="large">图文详情</mt-button>
+        </router-link>
+
+2. `main.js`中配置路由规则
+
+        // 导入组件
+        import goodsdesc from './components/goods/goodsdesc.vue';
+        // 设置路由规则
+        {path:'/goods/goodsdesc/:id',component:goodsdesc},
+
+3. 根据`API`请求数据
+
