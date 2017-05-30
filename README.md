@@ -524,3 +524,39 @@
         {path:'/shopcar/car',component:car}
 
 2. 利用`v-model`绑定开关状态并存储到数组中
+
+## 购物车-列表界面请求真实数据
+
+1. 将本地存储中`goodsid`相同的多个对象合并成同一个对象
+
+        export function getgoodsObject(){
+
+                var arr  = getItem();
+                var resObj ={};
+                for(var i = 0 ; i<arr.length; i++){
+                        var item = arr[i];
+                        if(!resObj[item.goodsid]){
+                        // 如果没有当前商品的数据，则添加一个数据
+                        resObj[item.goodsid] = item.count;
+                        }else{
+                        // 已经有当前商品的数据了，则将cont追加
+                        var count = resObj[item.goodsid];
+                        resObj[item.goodsid] = count + item.count;
+                        }
+                }
+                return resObj;
+        }
+
+2. 遍历存储商品id和数量的对象,将id拼接成为字符串
+
+        // 1.0 从localstorage中获取到所有的商品id值
+        var obj = getgoodsObject();
+        // 2.0 将id值按照 api的参数格式进行拼接
+        var idstring = '';
+        for(var key in obj){
+                idstring+= key + ',';
+        }
+        // 去除最后一个逗号
+        idstring = idstring.substring(0,idstring.length-1);
+
+3. 发送请求获取购物车列表真实数据

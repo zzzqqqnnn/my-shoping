@@ -21,28 +21,48 @@
 </template>
 
 <script>
+    import {getgoodsObject} from '../../kits/localSg.js';
+	import common from '../../kits/common.js';
+	import { Toast } from 'mint-ui';
+    
 	export default{
 		data(){
 			return {
 				value:[],
-				datalist:[
-					{
-						"cou": 1,
-						"id": 87,
-						"title": "华为（HUAWEI）荣耀6Plus 16G双4G版",
-						"sell_price": 2195,
-						"thumb_path": "http://www.webhm.top:8080/upload/201504/20/thumb_201504200046594439.jpg"
-					},
-					{
-						"cou": 1,
-						"id": 88,
-						"title": "苹果Apple iPhone 6 Plus 16G 4G手机（联通三网版）",
-						"sell_price": 5780,
-						"thumb_path": "http://www.webhm.top:8080/upload/201504/20/thumb_201504200059017695.jpg"
-					}
-				]
+				datalist:[]
 			}
-		}
+		},
+        created(){
+            // 调用方法获取购物车列表数据
+			this.getdatalist();
+		},
+        methods:{
+            getdatalist(){
+                // 1.0 从localstorage中获取到所有的商品id值
+				var obj = getgoodsObject();
+                // 2.0 将id值按照 api的参数格式提交给api
+				var idstring = '';
+				for(var key in obj){
+					idstring+= key + ',';
+				}
+
+				idstring = idstring.substring(0,idstring.length-1);
+
+                // 3.0 ajax请求这个api获取到完整的商品数据信息赋值给this.datalist
+				var url  = common.apidomain + '/api/goods/getshopcarlist/'+idstring;
+				this.$http.get(url).then(function(res){
+					//状态值的判断
+					if(res.body.status != 0 ){
+						Toast(res.body.message);
+						return;
+					}
+
+					this.datalist = res.body.message;
+				});
+
+			}
+
+        }
 	}
 </script>
 

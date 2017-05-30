@@ -36,3 +36,39 @@ export function getItem(){
 export function removeItem(){
     localStorage.removeItem(KEY);
 }
+
+// 5.0 将localStorage中的数据全部整合成一个对象的形式
+/*
+* 格式：
+* {
+*  商品id的值：商品的购买数量,
+*  商品id的值：商品的购买数量
+* }
+* 真正的数据是：
+* {
+*   87:4,
+*   88:1
+* }
+* */
+export function getgoodsObject(){
+//   获取 数组
+/*
+* arr的格式：
+* [{goodsid:87,count:1},{goodsid:87,count:3},{goodsid:88,count:1}]
+* */
+    var arr  = getItem();
+    // 将arr数组中的goodid相同的多个对象合并成同一个对象
+    var resObj ={};
+    for(var i = 0 ; i<arr.length; i++){
+        var item = arr[i];
+        if(!resObj[item.goodsid]){
+            // 如果没有当前商品的数据，则添加一个数据
+            resObj[item.goodsid] = item.count;
+        }else{
+             // 已经有当前商品的数据了，则将cont追加
+            var count = resObj[item.goodsid];
+            resObj[item.goodsid] = count + item.count;
+        }
+    }
+    return resObj;
+}
