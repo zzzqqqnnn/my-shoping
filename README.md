@@ -403,3 +403,34 @@
 
         // 使用子组件
         <comment :id="id"></comment>
+
+## 商品详情-定制inputNumber组件
+
+1. 创建`inputNumber.vue`文件实现组件布局和增减逻辑
+
+2. 子组件向父组件传值
+
+        - 子组件inputNumber中定义方法使用this.$emit传值
+        sendmessage(){
+                this.$emit('dataobj',this.count);
+        }
+
+        - 子组件中数据发生变化时调用sendmessage方法
+        this.sendmessage();
+
+        - 父组件使用子组件时绑定子组件传值时属性名相同的方法`dataobj`
+        <inputnumber v-on:dataobj="getcount" class="inputnumber"></inputnumber>
+
+        - 父组件定义getcount方法,参数即为子组件传递过来的值
+        getcount(count){
+                // count 即为子组件传递过来的数据
+                this.inputNumberCount = count;
+        },
+
+3. 父组件中使用子组件
+
+        - 注册子组件
+        components:{silder,inputnumber}
+
+        - 使用子组件
+        <inputnumber v-on:dataobj="getcount" class="inputnumber"></inputnumber> 

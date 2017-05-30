@@ -13,8 +13,8 @@
 				<li class="price">
 					市场价: <s>￥{{info.market_price}}</s>    销售价：<span>￥{{info.sell_price}}</span>
 				</li>
-				<li>
-					购买数量：
+                <li class="inputli">
+					购买数量： <inputnumber v-on:dataobj="getcount" class="inputnumber"></inputnumber>
 				</li>
 				<li>
 					<mt-button type="primary" size="small">立即购买</mt-button>
@@ -49,13 +49,15 @@
 <script>
 	import silder from '../subcom/silder.vue';
 	import common from '../../kits/common.js';
+    import inputnumber from '../subcom/inputNumber.vue';
     import { Toast } from 'mint-ui';
 
 	export default{
-		components:{silder},
+        components:{silder,inputnumber},
 		data(){
 			return {
 				id : 0,  //表示商品id
+                inputNumberCount:1, //表示当前购买商品的数量
 				imgs:[],
                 info:{}
 			}
@@ -67,6 +69,11 @@
             this.getinfo();
 		},
 		methods:{
+            // 获取inputnumber组件中传入的值
+			getcount(count){
+				this.inputNumberCount = count;
+			},
+
             // 1.0 获取商品详细描述
 			getinfo(){
 				var url = common.apidomain +'/api/goods/getinfo/'+this.id;
@@ -133,5 +140,14 @@
 
 #other .imgdesc{
     margin-bottom: 20px;
+}
+
+.inputli{
+    position: relative;
+}
+.inputnumber{
+    position: absolute;
+    left:100px;
+    top:5px;
 }
 </style>
