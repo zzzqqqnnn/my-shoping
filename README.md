@@ -317,3 +317,13 @@
         this.$http.get(url).then(function(res){
                 // res.body即为请求回来的数据
         });
+
+## 商品详情-路由跳转
+
+1. `goodlist.vue`中配置跳转路径
+
+        <router-link v-bind="{to:'/goods/goodsinfo/'+item.id}">
+
+2. `main.js`中配置路由规则
+
+        {path:'/goods/goodsinfo/:id',component:goodsinfo},

@@ -4,7 +4,7 @@
 			<ul class="mui-table-view mui-grid-view">
 
 				<li v-for="item in list" class="mui-table-view-cell mui-media mui-col-xs-6">
-					<a href="#">
+                    <router-link v-bind="{to:'/goods/goodsinfo/'+item.id}">
 						<img class="mui-media-object" :src="item.img_url">
 						<div class="mui-media-body" v-text="item.title"></div>
 						<div class="desc">
@@ -18,7 +18,7 @@
 							</p>
 						</div>
 
-					</a>
+                    </router-link>
 
 				</li>
 
@@ -29,7 +29,7 @@
 <script>
 	import common from '../../kits/common.js';
 	import { Toast } from 'mint-ui';
-    
+
 	export default{
 		data(){
 			return {
