@@ -3,18 +3,18 @@
     <div id="mui-content" class="mui-content" style="background-color:#fff">
 			<ul class="mui-table-view mui-grid-view">
 
-				<li class="mui-table-view-cell mui-media mui-col-xs-6">
+				<li v-for="item in list" class="mui-table-view-cell mui-media mui-col-xs-6">
 					<a href="#">
-						<img class="mui-media-object" src="http://www.webhm.top:8080/upload/201504/20/thumb_201504200046589514.jpg">
-						<div class="mui-media-body">Color of SIP CBD</div>
+						<img class="mui-media-object" :src="item.img_url">
+						<div class="mui-media-body" v-text="item.title"></div>
 						<div class="desc">
 							<p>
-								<span>￥2099</span>
-								<s>￥2199</s>
+								<span>￥{{item.sell_price}}</span>
+								<s>￥{{item.market_price}}</s>
 							</p>
 							<p>
 									<h6 class="left">热卖中</h6>
-									<h6 class="right">剩余60件</h6>
+									<h6 class="right">剩余{{item.stock_quantity}}件</h6>
 							</p>
 						</div>
 
@@ -22,62 +22,42 @@
 
 				</li>
 
-				<li class="mui-table-view-cell mui-media mui-col-xs-6">
-					<a href="#">
-						<img class="mui-media-object" src="http://www.webhm.top:8080/upload/201504/20/thumb_201504200154277661.jpg">
-						<div class="mui-media-body">静静看这世界</div>
-						<div class="desc">
-							<p>
-								<span>￥2099</span>
-								<s>￥2199</s>
-							</p>
-							<p>
-							<h6 class="left">热卖中</h6>
-							<h6 class="right">剩余60件</h6>
-							</p>
-						</div>
-					</a></li>
-				<li class="mui-table-view-cell mui-media mui-col-xs-6">
-					<a href="#">
-						<img class="mui-media-object" src="http://www.webhm.top:8080/upload/201504/20/thumb_201504200154277661.jpg">
-						<div class="mui-media-body">静静看这世界</div>
-						<div class="desc">
-							<p>
-								<span>￥2099</span>
-								<s>￥2199</s>
-							</p>
-							<p>
-							<h6 class="left">热卖中</h6>
-							<h6 class="right">剩余60件</h6>
-							</p>
-						</div>
-					</a></li>
-				<li class="mui-table-view-cell mui-media mui-col-xs-6">
-					<a href="#">
-						<img class="mui-media-object" src="http://www.webhm.top:8080/upload/201504/20/thumb_201504200154277661.jpg">
-						<div class="mui-media-body">静静看这世界</div>
-						<div class="desc">
-							<p>
-								<span>￥2099</span>
-								<s>￥2199</s>
-							</p>
-							<p>
-							<h6 class="left">热卖中</h6>
-							<h6 class="right">剩余60件</h6>
-							</p>
-						</div>
-					</a></li>
 			</ul>
-		</div>
+	</div>
   </div>
 </template>
 <script>
-export default {
-  data () {
-    return {
-    };
-  }
-}
+	import common from '../../kits/common.js';
+	import { Toast } from 'mint-ui';
+    
+	export default{
+		data(){
+			return {
+				list:[]
+			}
+		},
+		created(){
+		 this.getlist();
+		},
+		methods:{
+			getlist(){
+                // 获取到商品列表数据
+				var url = common.apidomain + '/api/getgoods?pageindex=1';
+
+				this.$http.get(url).then(function(res){
+					if(res.body.status != 0 ){
+						Toast(res.body.message);
+						return;
+					}
+
+                    // 当服务器返回了正常数据的时候做赋值操作
+					this.list = res.body.message;
+				});
+			}
+		}
+	}
+
+</script>
 </script>
 <style scoped>
     #mui-content li{

@@ -311,3 +311,9 @@
         
         http://www.dcloud.io/hellomui/examples/slider-table-default.html
 	
+
+## 商品购买请求动态数据
+
+        this.$http.get(url).then(function(res){
+                // res.body即为请求回来的数据
+        });
