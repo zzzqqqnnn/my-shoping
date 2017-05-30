@@ -226,14 +226,14 @@
 
 2. 设置跳转的路由规则
 
-- 建立`photoinfo.vue`组件
-- 导入`photoinfo.vue`
+        - 建立`photoinfo.vue`组件
+        - 导入`photoinfo.vue`
 
-        import photoinfo from './components/photo/photoinfo.vue';
+                import photoinfo from './components/photo/photoinfo.vue';
 
-- 配置路由规则
+        - 配置路由规则
 
-        {path:'/photo/photoinfo/:id',component:photoinfo}
+                {path:'/photo/photoinfo/:id',component:photoinfo}
 
 3. 获取路由传递的id值
 
@@ -332,12 +332,12 @@
 
 1. 抽取组件:
 
-- 将`Home.vue`中的轮播图结构代码和样式代码抽取到单独的`silder.vue`文件中
-- 定义一个用于接收父组件传递过来参数的imgs属性
+        - 将`Home.vue`中的轮播图结构代码和样式代码抽取到单独的`silder.vue`文件中
+        - 定义一个用于接收父组件传递过来参数的imgs属性
 
 2. 使用组件
 
-- 需要使用`siler`组件的父组件中先注册组件
+        - 需要使用`siler`组件的父组件中先注册组件
 
         import silder from '../components/subcom/silder.vue';
         ...
@@ -346,6 +346,12 @@
                 silder
         }
 
-- 使用组件并传递参数
+        - 使用组件并传递参数
 
         <silder :imgs='list'></silder>
+
+## 商品详情-详情页面静态结构布局
+
+1. 根据页面模块书写`HTML`结构
+
+2. 书写`CSS`样式
