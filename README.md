@@ -516,3 +516,11 @@
                 //重置小球的初始状态
                 this.isshow = !this.isshow;
         }
+
+## 购物车-列表界面静态结构
+
+1. 设置跳转路径和路由规则
+
+        {path:'/shopcar/car',component:car}
+
+2. 利用`v-model`绑定开关状态并存储到数组中
