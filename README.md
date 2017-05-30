@@ -327,3 +327,25 @@
 2. `main.js`中配置路由规则
 
         {path:'/goods/goodsinfo/:id',component:goodsinfo},
+
+## 商品详情-轮播图组件的提取
+
+1. 抽取组件:
+
+- 将`Home.vue`中的轮播图结构代码和样式代码抽取到单独的`silder.vue`文件中
+- 定义一个用于接收父组件传递过来参数的imgs属性
+
+2. 使用组件
+
+- 需要使用`siler`组件的父组件中先注册组件
+
+        import silder from '../components/subcom/silder.vue';
+        ...
+        ...
+        components:{
+                silder
+        }
+
+- 使用组件并传递参数
+
+        <silder :imgs='list'></silder>

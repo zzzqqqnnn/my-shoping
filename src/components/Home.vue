@@ -1,14 +1,7 @@
 <template>
     <div id='tmpl'>
         <!--1.0 利用mint-ui的mt-swipe组件实现轮播图-->
-        <mt-swipe :auto='2000'>
-            <!--<mt-swipe-item>1</mt-swipe-item>
-                                <mt-swipe-item>2</mt-swipe-item>
-                                <mt-swipe-item>3</mt-swipe-item>-->
-            <mt-swipe-item v-for="(item,index) in list" :key='index'>
-                <img :src='item.img'>
-            </mt-swipe-item>
-        </mt-swipe>
+        <silder :imgs='list'></silder>
     
         <!--2.0 利用MUI的九宫格组件实现实现导航区域-->
         <div class="mui-content">
@@ -61,7 +54,12 @@ import { Toast } from 'mint-ui';
 
 import common from '../kits/common.js'
 
+import silder from '../components/subcom/silder.vue'
+
 export default {
+    components:{
+        silder
+    },
     data() {
         return {
             list: []
