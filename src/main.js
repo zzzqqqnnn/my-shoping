@@ -19,6 +19,7 @@ import photoinfo from './components/photo/photoinfo.vue';
 import goodslist from './components/goods/goodslist.vue';
 import goodsinfo from './components/goods/goodsinfo.vue';
 import goodsdesc from './components/goods/goodsdesc.vue';
+import goodscomment from './components/goods/goodscomment.vue';
 
 // 3.0.2 定义路由规则
 var router1 = new vueRouter({
@@ -34,6 +35,7 @@ var router1 = new vueRouter({
 		{path:'/goods/goodslist',component:goodslist},
 		{path:'/goods/goodsinfo/:id',component:goodsinfo},
 		{path:'/goods/goodsdesc/:id',component:goodsdesc},
+		{path:'/goods/goodscomment/:id',component:goodscomment},
 	]
 	});
 

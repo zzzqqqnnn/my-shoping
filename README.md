@@ -379,3 +379,27 @@
 
 3. 根据`API`请求数据
 
+## 商品详情-商品评论组件集成
+
+1. `goodsinfo.vue`中设置路由跳转路径
+
+        <router-link v-bind="{to:'/goods/goodscomment/'+id}">
+                <mt-button type="danger" size="large">商品评论</mt-button>
+        </router-link>
+
+2. `main.js`中配置路由规则
+
+        // 导入组件
+        import goodscomment from './components/goods/goodscomment.vue';
+        // 设置路由规则
+        {path:'/goods/goodscomment/:id',component:goodscomment},
+
+3. `goodscomment.vue`中集成`comment.vue`组件
+
+        // 注册子组件
+        components:{
+                comment
+        }
+
+        // 使用子组件
+        <comment :id="id"></comment>

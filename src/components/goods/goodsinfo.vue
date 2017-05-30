@@ -39,7 +39,9 @@
 			<router-link v-bind="{to:'/goods/goodsdesc/'+id}">
 			    <mt-button class="imgdesc" type="primary" size="large">图文详情</mt-button>
 			</router-link>
-			<mt-button type="danger" size="large">商品评论</mt-button>
+            <router-link v-bind="{to:'/goods/goodscomment/'+id}">
+                <mt-button type="danger" size="large">商品评论</mt-button>
+            </router-link>
 		</div>
 	</div>
 </template>
