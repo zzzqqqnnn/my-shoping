@@ -1,17 +1,17 @@
 <template>
 	<div id="tmpl">
-        	  <!--1.0 商品轮播图-->
+	  <!--1.0 商品轮播图-->
 		<div class="silder">
 		<silder :imgs="imgs"></silder>
 		</div>
 
 		<!--2.0 实现商品购买区-->
 		<div id="buy">
-			<h4>标题标题标题标题标题</h4>
+			<h4 v-text="info.title"></h4>
 			<p class="line"></p>
 			<ul>
 				<li class="price">
-					市场价: <s>￥2199</s>    销售价：<span>￥2099</span>
+					市场价: <s>￥{{info.market_price}}</s>    销售价：<span>￥{{info.sell_price}}</span>
 				</li>
 				<li>
 					购买数量：
@@ -27,9 +27,9 @@
 				<h6>商品参数</h6>
 				<p class="line"></p>
 			<ul>
-				<li>商品货号：</li>
-				<li>库存情况：</li>
-				<li>上架时间：</li>
+				<li>商品货号：{{info.goods_no}}</li>
+				<li>库存情况：{{info.stock_quantity}}</li>
+				<li>上架时间：{{info.add_time | datefmt('YYYY-MM-DD')}}</li>
 			</ul>
 		</div>
 
@@ -45,26 +45,47 @@
 <script>
 	import silder from '../subcom/silder.vue';
 	import common from '../../kits/common.js';
+    import { Toast } from 'mint-ui';
 
 	export default{
 		components:{silder},
 		data(){
 			return {
 				id : 0,  //表示商品id
-				imgs:[]
+				imgs:[],
+                info:{}
 			}
 		},
 		created(){
             // 获取url传入的商品id值
 			this.id = this.$route.params.id;
 			this.getimgs();
+            this.getinfo();
 		},
 		methods:{
+            // 1.0 获取商品详细描述
+			getinfo(){
+				var url = common.apidomain +'/api/goods/getinfo/'+this.id;
+				this.$http.get(url).then(function(res){
+					//判断状态
+                    var body = res.body;
+					if(body.status != 0 ){
+						Toast(body.message);
+						return;
+					}
+					this.info =res.body.message[0];
+				});
+			},
 			getimgs(){
 				var url  = common.apidomain + '/api/getthumimages/'+this.id;
 				this.$http.get(url).then(function(res){
 					//判断状态
-				this.imgs =res.body.message;
+                    var body = res.body;
+					if(body.status != 0 ){
+						Toast(body.message);
+						return;
+					}
+				    this.imgs =res.body.message;
 				});
 			}
 		}
