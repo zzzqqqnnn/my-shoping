@@ -20,7 +20,7 @@
 			<div class="desc">
 				<ul>
 					<li>总计（不含运费）</li>
-					<li>已勾选商品X件,总价:￥4999元</li>
+					<li>已勾选商品{{totalcount}}件,总价:￥{{totalAmount}}元</li>
 				</ul>
 			</div>
 			<div id="button">
@@ -43,8 +43,32 @@
 		},
 		data(){
 			return {
+				totalAmount:0, //总价格
 				value:[],
 				datalist:[]
+			}
+		},
+		computed:{
+			// 1.0 定义计算总件数的属性
+			totalcount(){
+				// 计算逻辑：只需要计算出this.value数组中的ture值有多少个即可
+				var trueArr =  this.value.filter(function(item){return item;});
+				// 计算出当前选中的商品的总价格
+				//计算方式： 当前商品的购买数量 * 商品的单价 （其中两个值均从this.datalist中来）
+				var amount = 0;
+				this.value.forEach((item,index) =>{
+					// 判断当前item如果为true的话，则这个商品的总价格是要计算的
+					if(item){
+						console.log(this.datalist[index])
+						var count = this.datalist[index].cou;
+						var price = this.datalist[index].sell_price;
+						var itemamount =   count * price;
+						amount += itemamount;
+					}
+				});
+
+				this.totalAmount = amount;
+				return trueArr.length;
 			}
 		},
         created(){
@@ -61,9 +85,9 @@
 				for(var i = 0;i <this.datalist.length ; i++){
 					if(this.datalist[i].id == resObj.goodsid){
 						if(resObj.type =='add'){
-							this.datalist[i].cou = this.datalist[i] + 1;
+							this.datalist[i].cou = + this.datalist[i] + 1;
 						}else{
-							this.datalist[i].cou = this.datalist[i] - 1;
+							this.datalist[i].cou = + this.datalist[i] - 1;
 						}
 						break;
 					}
