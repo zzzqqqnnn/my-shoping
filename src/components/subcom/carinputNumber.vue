@@ -25,6 +25,7 @@
                 // 确保最小值为1
 				if(this.count <1){
 					this.count = 1;
+					return;
 				}
 				this.sendmessage('substrict');
 			},

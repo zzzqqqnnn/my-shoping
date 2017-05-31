@@ -32,9 +32,19 @@ export function getItem(){
     return JSON.parse(jsonString);
 }
 
-// 4.0 移除数据
-export function removeItem(){
-    localStorage.removeItem(KEY);
+// 4.0 移除数据 goodsid:商品id
+export function removeItem(goodsid){
+    var arr = getItem();
+    // 查找arr中的goodsid和传入的参数goodsid一致的数据全部移除
+    for(var i= arr.length -1;i>=0 ; i--){
+        if(arr[i].goodsid == goodsid){
+            arr.splice(i,1);
+        }
+    }
+
+    // 将最新的arr保存回localStorage中
+    localStorage.setItem(KEY,JSON.stringify(arr));
+
 }
 
 // 5.0 将localStorage中的数据全部整合成一个对象的形式

@@ -9,7 +9,7 @@
 					<ul>
 						<li>￥{{item.sell_price}}</li>
 						<li><carinputnumber :initCount="item.cou" :goodsid="item.id" v-on:cardataobj="getiInputNumber"></carinputnumber></li>
-						<li><a href="#">删除</a></li>
+						<li><a href="javascript:void(0)" @click="delrow(item.id,index)">删除</a></li>
 					</ul>
 
 				</div>
@@ -32,7 +32,7 @@
 </template>
 
 <script>
-    import {getgoodsObject,updateData} from '../../kits/localSg.js';
+    import {getgoodsObject,updateData,removeItem} from '../../kits/localSg.js';
 	import common from '../../kits/common.js';
 	import { Toast } from 'mint-ui';
 	import carinputnumber from '../subcom/carinputNumber.vue';
@@ -76,6 +76,16 @@
 			this.getdatalist();
 		},
         methods:{
+			//删除一行数据
+			delrow(goodsid,index){
+				console.log(goodsid,index);
+				// 1.0 将this.value数组中的index这个位置的值移除(当移除了这个值的时候就会自动触发计算属性totalcount的执行)
+				this.value.splice(index,1);
+				// 2.0 将this.datalist中的index这个位置的值移除(当移除了这个值的时候就会自动触发计算属性totalcount的执行)
+				this.datalist.splice(index,1);
+				// 3.0 将localStroage中的goodsid对应的所有值移除
+				removeItem(goodsid);
+			},
 			// 获取数量组件中返回的内容
 			getiInputNumber(resObj){
 				//  1.0 更新localStorage中的数据
@@ -85,9 +95,9 @@
 				for(var i = 0;i <this.datalist.length ; i++){
 					if(this.datalist[i].id == resObj.goodsid){
 						if(resObj.type =='add'){
-							this.datalist[i].cou = + this.datalist[i] + 1;
+							this.datalist[i].cou = + this.datalist[i].cou + 1;
 						}else{
-							this.datalist[i].cou = + this.datalist[i] - 1;
+							this.datalist[i].cou = + this.datalist[i].cou - 1;
 						}
 						break;
 					}
