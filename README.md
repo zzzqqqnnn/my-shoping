@@ -559,4 +559,28 @@
         // 去除最后一个逗号
         idstring = idstring.substring(0,idstring.length-1);
 
-3. 发送请求获取购物车列表真实数据
+3. 发送请求获取购物车列表真实数据##
+
+## 购物车-carinputNumber组件封装
+
+1. 实现父组件向子组件传值(carinputNumber中显示的数量从父组件中得来)
+
+        - 因为数量是存储在localStorage中,所以数据请求回来之后,需要根据数据的id从localStorage
+        中将每个id对应的数量取出来存放到请求回来的数据里面的cou属性中
+
+2. 实现子组件向父组件传值(点击carinputNumber组件中的加减后,需要将加减后的数据传回到父组件中)
+
+        - 因为每次加减都是1,所以只需要传递该数据的id以及点击按钮的类型是加还是减,具体更新父组件中数量的代码
+        逻辑在父组件中完成
+
+        sendmessage(type){
+                this.resObj.type = type;
+                this.resObj.goodsid = this.goodsid;
+
+                this.$emit('cardataobj',this.resObj);
+        }
+
+3. 数据通过子组件加减后需要更新本地`localStorage`中的数据以及`datalist`中的数据
+
+        - 封装localStorage更新数据操作
+        updateData(resObj);

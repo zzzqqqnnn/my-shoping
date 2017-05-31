@@ -8,7 +8,7 @@
 				<div class="bottom">
 					<ul>
 						<li>￥{{item.sell_price}}</li>
-						<li>购买数量组件</li>
+						<li><carinputnumber :initCount="item.cou" :goodsid="item.id" v-on:cardataobj="getiInputNumber"></carinputnumber></li>
 						<li><a href="#">删除</a></li>
 					</ul>
 
@@ -21,11 +21,15 @@
 </template>
 
 <script>
-    import {getgoodsObject} from '../../kits/localSg.js';
+    import {getgoodsObject,updateData} from '../../kits/localSg.js';
 	import common from '../../kits/common.js';
 	import { Toast } from 'mint-ui';
+	import carinputnumber from '../subcom/carinputNumber.vue';
     
 	export default{
+		components:{
+			carinputnumber
+		},
 		data(){
 			return {
 				value:[],
@@ -37,6 +41,23 @@
 			this.getdatalist();
 		},
         methods:{
+			// 获取数量组件中返回的内容
+			getiInputNumber(resObj){
+				//  1.0 更新localStorage中的数据
+				updateData(resObj);
+
+				// 2.0 更新 this.datalist中的当前数量
+				for(var i = 0;i <this.datalist.length ; i++){
+					if(this.datalist[i].id == resObj.goodsid){
+						if(resObj.type =='add'){
+							this.datalist[i].cou = this.datalist[i] + 1;
+						}else{
+							this.datalist[i].cou = this.datalist[i] - 1;
+						}
+						break;
+					}
+				}
+			},
             getdatalist(){
                 // 1.0 从localstorage中获取到所有的商品id值
 				var obj = getgoodsObject();
@@ -56,6 +77,15 @@
 						Toast(res.body.message);
 						return;
 					}
+
+					// 将locaStorage中的所有的商品对应的count的值赋值给message中每个对象的cou
+					res.body.message.forEach((item)=>{
+						item.cou = obj[item.id];
+
+						// 为了解决一个bug所以必须在此处初始化values数组全部为false
+						this.value.push(false);
+
+					});
 
 					this.datalist = res.body.message;
 				});

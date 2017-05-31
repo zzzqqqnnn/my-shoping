@@ -72,3 +72,33 @@ export function getgoodsObject(){
     }
     return resObj;
 }
+
+//obj的格式：{goodsid:87,type:'add'}
+export function updateData(obj){
+    var arr  = getItem();
+
+    var count = 1;
+    if(obj.type =='add'){
+        //加
+        arr.push({goodsid:obj.goodsid,count:count});
+    }else{
+        //减
+        for(var i =0 ;i < arr.length ; i++){
+            //如果这个对象中的count值等于1，则删除这个对象，否则将这个对象的count减1以后保存回去
+            if(arr[i].goodsid == obj.goodsid){
+                if(arr[i].count > 1){
+                    arr[i].count = arr[i].count -1;
+                    break;
+                }else{
+                    //删除此对象
+                    arr.splice(i,1);
+                    break;
+                }
+            }
+        }
+    }
+
+    // 将最新的arr保存回localStorage中
+    localStorage.setItem(KEY,JSON.stringify(arr));
+
+}
