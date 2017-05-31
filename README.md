@@ -607,3 +607,23 @@
 
 3. 删除`localStorage`中存储的数据
 
+## 统一返回按钮实现
+
+1. 浏览器后退使用vue-router中的`this.$router.go(-1)`
+
+        backto(){
+                this.$router.go(-1);
+        }
+
+2. 控制返回按钮在非首页显示
+
+        // 监控路由变化
+        watch:{
+                '$route':function(newroute,oldroute){
+                        if(newroute.path.toLowerCase() == '/home'){
+                                this.isshow = false;
+                        }else{
+                                this.isshow = true;
+                        }
+                }
+        }
