@@ -16,6 +16,17 @@
 			</div>
 		</div>
 
+		<div id="total">
+			<div class="desc">
+				<ul>
+					<li>总计（不含运费）</li>
+					<li>已勾选商品X件,总价:￥4999元</li>
+				</ul>
+			</div>
+			<div id="button">
+				<mt-button  type="danger" size="small">去结算</mt-button>
+			</div>
+		</div>
 		{{value}}
 	</div>
 </template>
@@ -140,4 +151,28 @@
 		margin-left: 10px;
 	}
 
+	#total{
+		height: 100px;
+		background-color: rgba(0,0,0,0.1);
+		display: flex;
+		padding: 5px;;
+	}
+
+	#total ul {
+	 padding-left: 0px;
+	}
+	#total li{
+		list-style: none;
+		font-size: 14px;
+	}
+
+	#button{
+		flex:0 0 60px;
+		margin: 30px 0 0 0 ;
+	}
+
+	.desc{
+
+		flex:1;
+	}
 </style>

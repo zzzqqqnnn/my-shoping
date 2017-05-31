@@ -559,7 +559,7 @@
         // 去除最后一个逗号
         idstring = idstring.substring(0,idstring.length-1);
 
-3. 发送请求获取购物车列表真实数据##
+3. 发送请求获取购物车列表真实数据
 
 ## 购物车-carinputNumber组件封装
 
@@ -584,3 +584,10 @@
 
         - 封装localStorage更新数据操作
         updateData(resObj);
+
+## 购物车-总计区域静态结构布局
+
+1. 书写静态结构
+
+2. 书写CSS样式
+
