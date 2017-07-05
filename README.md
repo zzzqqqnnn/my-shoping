@@ -627,3 +627,19 @@
                         }
                 }
         }
+
+## extract-text-webpack-plugin抽取css文件
+
+        1. 安装插件
+
+        npm install extract-text-webpack-plugin@1.0.1 --save-dev
+
+        2. webpack.config.js中引入插件
+        
+        var ExtractTextPlugin = require('extract-text-webpack-plugin');
+
+        3. 修改css-loader配置
+        loader: ExtractTextPlugin.extract("style-loader", "css-loader")
+
+        4. plugin配置中使用插件
+        new ExtractTextPlugin('app.css')
