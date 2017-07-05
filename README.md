@@ -663,3 +663,43 @@
                 name: 'vendors',
                 filename: 'vendors.js'
         })
+
+## 代码压缩
+
+        1. html代码压缩
+        // 自动生成HTML插件中进行配置
+        new htmlwp({
+                filename: 'index.html',
+                template: 'template.html',
+                // 代码压缩
+                minify: {
+                        // 删除注释
+                        removeComments: true,
+                        // 删除空格
+                        collapseWhitespace: true,
+                        // 删除空格缩进
+                        removeAttributeQuotes: true
+                }
+        }),
+
+        // 2. js代码压缩混淆插件
+        new webpack.optimize.UglifyJsPlugin({
+                beautify: false,
+                mangle: {
+                        screw_ie8: true,
+                        keep_fnames: true
+                },
+                compress: {
+                        warnings: false,
+                        screw_ie8: true
+                },
+                comments: false
+        }),
+
+        // 3. 删除警告
+        new webpack.DefinePlugin({
+                'process.env': {
+                        // 注意字符串被引号引起来
+                        NODE_ENV: '"production"'
+                }
+        })

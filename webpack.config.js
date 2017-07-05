@@ -60,7 +60,15 @@ module.exports = {
     new htmlwp({
       title: '首页',  //生成的页面标题<head><title>首页</title></head>
       filename: 'index.html', //webpack-dev-server在内存中生成的文件名称，自动将build注入到这个页面底部，才能实现自动刷新功能
-      template: 'template.html' //根据index1.html这个模板来生成(这个文件请程序员自己生成)
+      template: 'template.html', //根据index1.html这个模板来生成(这个文件请程序员自己生成)
+      minify: {
+        // 删除注释
+        removeComments: true,
+        // 删除空格
+        collapseWhitespace: true,
+        // 删除空格缩进
+        removeAttributeQuotes: true
+      }
     }),
     // 抽取css文件
     new ExtractTextPlugin('app.css'),
@@ -69,6 +77,28 @@ module.exports = {
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendors', // 根据入口文件中vendors分离对应的第三方包
       filename: 'vendors.js' // 生成一个vendor.js文件
+    }),
+
+    // js代码压缩
+    new webpack.optimize.UglifyJsPlugin({
+      beautify: false,
+      mangle: {
+        screw_ie8: true,
+        keep_fnames: true
+      },
+      compress: {
+        warnings: false,
+        screw_ie8: true
+      },
+      comments: false
+    }),
+
+    // 删除警告
+    new webpack.DefinePlugin({
+      'process.env': {
+        // 注意字符串被引号引起来
+        NODE_ENV: '"production"'
+      }
     })
   ]
 }
