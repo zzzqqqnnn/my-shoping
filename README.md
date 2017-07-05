@@ -643,3 +643,23 @@
 
         4. plugin配置中使用插件
         new ExtractTextPlugin('app.css')
+
+## 分离第三方包
+
+        1. 引入webpack和路径处理模块
+        var webpack = require('webpack');
+        var path = require('path');
+
+        2. 修改入口文件
+        entry: {
+                app: path.resolve(__dirname, 'src/main.js'),
+                // 需要分离的第三方包名写在数组中
+                vendors: ['vue', 'vue-resource', 'vue-router', 'vuex', 'mint-ui', 'moment', 'vue-preview']
+        },
+
+        3. plugin中配置插件
+        // 分离第三方包插件
+        new webpack.optimize.CommonsChunkPlugin({
+                name: 'vendors',
+                filename: 'vendors.js'
+        })
