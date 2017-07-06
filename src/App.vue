@@ -16,7 +16,7 @@
 				<span class="mui-icon mui-icon-home"></span>
 				<span class="mui-tab-label">首页</span>
 			</router-link>
-			<router-link class="mui-tab-item" to="/tabbar-with-chat">
+			<router-link class="mui-tab-item" to="/userinfo">
 				<span class="mui-icon mui-icon-email">
 				
 				</span>
@@ -55,7 +55,9 @@
 		},
 		watch:{
 			'$route':function(newroute,oldroute){
-				if(newroute.path.toLowerCase() == '/home'){
+				if(newroute.path.toLowerCase() == '/home'
+				|| newroute.path.toLowerCase() == '/userinfo'
+				|| newroute.path.toLowerCase() == '/login'){
 					this.isshow = false;
 				}else{
 					this.isshow = true;

@@ -744,3 +744,46 @@
                 // 第一个参数是 mutations 中定义的对应的方法名 第二个参数是需要更新的数据
                 // 具体更新逻辑在update方法中实现
                 this.$store.commit('update','lxy');调用update方法更新用户名
+
+## 路由拦截实现登录
+
+        1. 配置需要拦截的路由
+
+        {
+                path: '/userinfo',
+                component: userinfo,
+                meta: {
+                        requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
+                },
+                // 进入该路由前会执行
+                beforeEnter: (to, from, next) => {
+                        if (to.meta.requireAuth) {  // 判断该路由是否需要登录权限
+                                if (getCookie('session')) {
+                                        // 通过cookie获取当前的token是否存在
+                                        next();
+                                }
+                                else {
+                                        next({
+                                                path: '/login',
+                                                query: { redirect: to.fullPath }  // 将跳转的路由path作为参数，登录成功后跳转到该路由
+                                        })
+                                }
+                        }
+                        else {
+                                next();
+                        }
+                }
+        }
+
+        2. 进入拦截后的界面login,处理完登录请求后,进入userinfo
+
+        // 模拟
+        setTimeout(() => {
+                //登录状态1天后过期
+                let expireDays = 1000 * 60 * 60 * 24 * 1;
+                // 实际项目中token是由后台返回的加密组合信息,是从接口返回的数据
+                setCookie('session', 'token', expireDays);
+                this.isLoging = false;
+                //登录成功后
+                this.$router.push('/userinfo');
+        }, 1000)

@@ -21,6 +21,11 @@ import goodsinfo from './components/goods/goodsinfo.vue';
 import goodsdesc from './components/goods/goodsdesc.vue';
 import goodscomment from './components/goods/goodscomment.vue';
 import car from './components/shopcar/car.vue';
+import login from './components/account/login.vue';
+import userinfo from './components/account/userinfo.vue';
+
+// 导入获取cookie的方法
+import {getCookie} from './kits/cookie.js';
 
 // 3.0.2 定义路由规则
 var router1 = new vueRouter({
@@ -37,7 +42,31 @@ var router1 = new vueRouter({
 		{ path: '/goods/goodsinfo/:id', component: goodsinfo },
 		{ path: '/goods/goodsdesc/:id', component: goodsdesc },
 		{ path: '/goods/goodscomment/:id', component: goodscomment },
-		{ path: '/shopcar/car', component: car }
+		{ path: '/shopcar/car', component: car },
+		{ path: '/login', component: login },
+		{
+			path: '/userinfo',
+			component: userinfo,
+			meta: {
+				requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
+			},
+			beforeEnter: (to, from, next) => {
+				if (to.meta.requireAuth) {  // 判断该路由是否需要登录权限
+					if (getCookie('session')) {  // 通过cookie获取当前的token是否存在
+						next();
+					}
+					else {
+						next({
+							path: '/login',
+							query: { redirect: to.fullPath }  // 将跳转的路由path作为参数，登录成功后跳转到该路由
+						})
+					}
+				}
+				else {
+					next();
+				}
+			}
+		}
 	]
 });
 
