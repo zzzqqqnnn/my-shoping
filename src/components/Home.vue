@@ -67,7 +67,8 @@ export default {
     },
     // 页面中的data和methods对象创建完毕后会自动调用created方法
     created() {
-        this.getImgs()
+        this.getImgs();
+        console.log(this.$store.state.username);
     },
     methods: {
         getImgs() {

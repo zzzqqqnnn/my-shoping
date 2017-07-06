@@ -703,3 +703,44 @@
                         NODE_ENV: '"production"'
                 }
         })
+
+## vuex的简单使用
+
+        1. 安装vuex
+        npm install vuex --save
+
+        2. main.js中引入安装
+        import Vuex from 'vuex';
+        Vue.use(Vuex);
+
+        3. 配置vuex
+        // 3.1 Vuex配置
+        const store = new Vuex.Store({
+                // state类似vue实例中的data 用来存放数据
+                state: {
+                        // 可以设置一些需要全局使用的数据
+                        username:'zxx'
+                },
+                // mutations类似vue实例中的methods
+                mutations: {
+                        // 用来处理数据 比喻数据删除更新等操作
+                        update(state,name){
+                                state.username = name;
+                        }
+                }
+        })
+
+        // 3.2 Vue实例中注入
+        new Vue({
+                store:store
+        })
+
+        4. 组件中通过this.$store使用
+
+                console.log(this.$store.state.username);
+
+        5. 调用mutations方法更新数据
+
+                // 第一个参数是 mutations 中定义的对应的方法名 第二个参数是需要更新的数据
+                // 具体更新逻辑在update方法中实现
+                this.$store.commit('update','lxy');调用update方法更新用户名

@@ -24,22 +24,42 @@ import car from './components/shopcar/car.vue';
 
 // 3.0.2 定义路由规则
 var router1 = new vueRouter({
-	linkActiveClass:'mui-active',  //改变路由激活时的class名称
-	routes:[
-		{path:'/',redirect:'/home'},// 默认进入home页面(将跟页面重定向到首页home)
-		{path:'/home',component:home}, 
-		{path:'/shopcar',component:shopcar},
-		{path:'/news/newslist',component:newslist},
-		{path:'/news/newsinfo/:id',component:newsinfo},
-		{path:'/photo/photolist',component:photolist},
-		{path:'/photo/photoinfo/:id',component:photoinfo},
-		{path:'/goods/goodslist',component:goodslist},
-		{path:'/goods/goodsinfo/:id',component:goodsinfo},
-		{path:'/goods/goodsdesc/:id',component:goodsdesc},
-		{path:'/goods/goodscomment/:id',component:goodscomment},
-		{path:'/shopcar/car',component:car}
+	linkActiveClass: 'mui-active',  //改变路由激活时的class名称
+	routes: [
+		{ path: '/', redirect: '/home' },// 默认进入home页面(将跟页面重定向到首页home)
+		{ path: '/home', component: home },
+		{ path: '/shopcar', component: shopcar },
+		{ path: '/news/newslist', component: newslist },
+		{ path: '/news/newsinfo/:id', component: newsinfo },
+		{ path: '/photo/photolist', component: photolist },
+		{ path: '/photo/photoinfo/:id', component: photoinfo },
+		{ path: '/goods/goodslist', component: goodslist },
+		{ path: '/goods/goodsinfo/:id', component: goodsinfo },
+		{ path: '/goods/goodsdesc/:id', component: goodsdesc },
+		{ path: '/goods/goodscomment/:id', component: goodscomment },
+		{ path: '/shopcar/car', component: car }
 	]
-	});
+});
+
+// 导入状态管理vuex
+import Vuex from 'vuex';
+// 绑定到Vue上
+Vue.use(Vuex);
+
+var store = new Vuex.Store({
+	// state类似vue实例中的data 用来存放数据
+	state: {
+		// 可以设置一些需要全局使用的数据
+		username: 'zxx'
+	},
+	// mutations类似vue实例中的methods
+	mutations: {
+		// 用来处理数据 比喻数据删除更新等操作
+		update(state, name) {
+			state.username = name;
+		}
+	}
+})
 
 // 4.0 注册mint-ui
 // 导入mint-ui的css文件
@@ -61,7 +81,7 @@ Vue.use(vueResource);
 
 // 8.0 定义一个全局过滤器实现日期格式化
 import moment from 'moment';
-Vue.filter('datefmt',function(input,fmtstring){
+Vue.filter('datefmt', function (input, fmtstring) {
 	// 使用momentjs这个日期格式化类库实现日期的格式化功能
 	return moment(input).format(fmtstring);
 })
@@ -71,9 +91,11 @@ import VuePreview from 'vue-preview';
 Vue.use(VuePreview);
 // 利用Vue对象进行解析渲染
 new Vue({
-	el:'#app',
+	el: '#app',
 	// 使用路由对象实例
-	router:router1,
+	router: router1,
+	// 使用vuex
+	store,
 	// render:function(create){create(App)} //es5的写法
-	render:c=>c(App)  // es6的函数写法 =>：goes to
+	render: c => c(App)  // es6的函数写法 =>：goes to
 });

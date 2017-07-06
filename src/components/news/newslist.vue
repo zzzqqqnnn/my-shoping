@@ -62,6 +62,7 @@ export default {
     },
     created() {
         this.getNewsList();
+        this.$store.commit('update','lxy'); // 调用update方法更新用户名
     },
     methods: {
         // 获取新闻列表资讯
