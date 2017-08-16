@@ -28,9 +28,9 @@
 				</span>
 				<span class="mui-tab-label">购物车</span>
 			</router-link>
-			<router-link class="mui-tab-item" to="/tabbar-with-map">
+			<router-link class="mui-tab-item" to="/setting">
 				<span class="mui-icon mui-icon-gear"></span>
-				<span class="mui-tab-label">搜索</span>
+				<span class="mui-tab-label">设置</span>
 			</router-link>
 		</nav>
 	</div>

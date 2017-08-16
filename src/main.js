@@ -23,9 +23,11 @@ import goodscomment from './components/goods/goodscomment.vue';
 import car from './components/shopcar/car.vue';
 import login from './components/account/login.vue';
 import userinfo from './components/account/userinfo.vue';
+import setting from './components/setting/setting.vue';
+import map from './components/setting/map.vue';
 
 // 导入获取cookie的方法
-import {getCookie} from './kits/cookie.js';
+import { getCookie } from './kits/cookie.js';
 
 // 3.0.2 定义路由规则
 var router1 = new vueRouter({
@@ -43,6 +45,8 @@ var router1 = new vueRouter({
 		{ path: '/goods/goodsdesc/:id', component: goodsdesc },
 		{ path: '/goods/goodscomment/:id', component: goodscomment },
 		{ path: '/shopcar/car', component: car },
+		{ path: '/setting', component: setting },
+		{ path: '/map', component: map },
 		{ path: '/login', component: login },
 		{
 			path: '/userinfo',
@@ -118,6 +122,7 @@ Vue.filter('datefmt', function (input, fmtstring) {
 // 9.0 使用图片预览组件
 import VuePreview from 'vue-preview';
 Vue.use(VuePreview);
+
 // 利用Vue对象进行解析渲染
 new Vue({
 	el: '#app',

@@ -787,3 +787,37 @@
                 //登录成功后
                 this.$router.push('/userinfo');
         }, 1000)
+
+## 集成百度地图
+
+        1. 在百度地图开发者网站申请开发者key(选择浏览器端应用)
+        http://lbsyun.baidu.com/apiconsole/key?application=key
+
+        2. 在项目中引入百度地图库文件(由于异步加载的问题,在组件中引入方式比较特殊,这里直接在模板文件中引入)
+        <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=填写秘钥key"></script>
+
+        3. 在vue文件中实例化地图(地图需要显示在一个容器div中,实例化地图的方法要写在生命周期mounted中)
+        mounted() {
+                // 创建地图
+                var map = new BMap.Map("allmap");
+                // 初始化地理位置
+                var point = new BMap.Point(116.331398, 39.897445);
+                // 缩放中心和比例
+                map.centerAndZoom(point, 12);
+
+                // 定位
+                var geolocation = new BMap.Geolocation();
+                geolocation.getCurrentPosition(function (r) {
+                if (this.getStatus() == BMAP_STATUS_SUCCESS) {
+                        // 定位成功 标记地理位置
+                        var mk = new BMap.Marker(r.point);
+                        map.addOverlay(mk);
+                        map.panTo(r.point);
+                        console.log('您的位置：' + r.point.lng + ',' + r.point.lat);
+                }
+                else {
+                        alert('failed' + this.getStatus());
+                }
+                }, { enableHighAccuracy: true })
+        }
+
