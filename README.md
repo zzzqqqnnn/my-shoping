@@ -821,3 +821,44 @@
                 }, { enableHighAccuracy: true })
         }
 
+## axios集成
+
+        // 1. 安装axios核心库(qs是post请求时对参数进行序列化的库)
+        npm install axios qs --save
+
+        // 2. 将axios制作成Vue插件进行集成(新建一个axios.js文件书写以下代码)
+        
+        import axios from 'axios';
+        // 设置请求根域名
+        axios.defaults.baseURL = 'http://www.lovegf.cn:8899';
+        export default {
+                install:function(Vue){
+                        // 将$axios 绑定到Vue.prototype上 并且该属性为只读
+                        Object.defineProperty(Vue.prototype, '$axios', { value: axios });
+                }
+        }
+
+        // 3. main.js中使用Vue.use()安装
+        import axios from './kits/axios.js'
+        Vue.use(axios);
+
+        // 4. 使用axios发送get请求
+        this.$axios.get(url).then(function(res){
+                // 返回的响应数据在res.data属性中
+                console.log(res.data);
+                // 回调函数内部的this不是当前数据请求方法的调用者
+                // 通常内部this是window 在node平台 内部this是undefined
+        })
+
+        // 一般使用箭头函数写法
+        this.$axios.get(url).then((res)=>{
+                console.log(res.data);
+        })
+
+        // 4 使用axios发送post请求
+        // post请求(Content-Type:application/x-www-form-urlencoded 时需要配合qs.stringify使用)
+        import qs from 'qs';
+        this.$axios.post(url,qs.stringify({数据}).then((res)=>{
+                // 返回的响应数据在res.data属性中
+                console.log(res.data);
+        })

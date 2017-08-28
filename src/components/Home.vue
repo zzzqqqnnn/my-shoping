@@ -74,10 +74,11 @@ export default {
         getImgs() {
             // 实现轮播组件中的数据请求
             // 1.0 确定URL
-            const url = common.apidomain + '/api/getlunbo';
+            const url = '/api/getlunbo';
             // 2.0 发送get请求 $http.get()
-            this.$http.get(url).then(function (response) {
-                const data = response.body;
+            this.$axios.get(url).then((response)=> {
+                console.log(response.data);
+                const data = response.data;
                 // 错误处理
                 if (data.status != 0) {
                     Toast(data.message);

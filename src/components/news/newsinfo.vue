@@ -42,8 +42,8 @@ export default {
             const url = common.apidomain + '/api/getnew/' + this.id;
 
             // 2.0 发送请求获取数据
-            this.$http.get(url).then(function (response) {
-                var body = response.body;
+            this.$axios.get(url).then((response)=> {
+                var body = response.data;
                 if (body.status != 0) {
                     Toast(body.message);
                     return;

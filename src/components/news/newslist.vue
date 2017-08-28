@@ -99,9 +99,9 @@ export default {
             const url = common.apidomain + '/api/getnewslist';
 
             // 2.0 利用$http.get请求数据
-            this.$http.get(url).then(function (response) {
+            this.$axios.get(url).then((response)=> {
                 // 3.0 获取返回的数据
-                var body = response.body;
+                var body = response.data;
 
                 // 4.0 判断响应报文中的状态码，如果是非0则提示用户请求异常
                 if (body.status != 0) {

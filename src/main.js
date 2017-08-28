@@ -112,6 +112,10 @@ import '../statics/css/site.css';
 import vueResource from 'vue-resource';
 Vue.use(vueResource);
 
+// **集成axios演示**
+import axios from './kits/axios.js';
+Vue.use(axios);
+
 // 8.0 定义一个全局过滤器实现日期格式化
 import moment from 'moment';
 Vue.filter('datefmt', function (input, fmtstring) {

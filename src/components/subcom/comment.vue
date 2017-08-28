@@ -32,6 +32,7 @@
 <script>
 import common from '../../kits/common.js';
 import { Toast } from 'mint-ui';
+import qs from 'qs';
 
 export default {
     props: ['id'],//用来接收父组件传递过来的值
@@ -58,8 +59,8 @@ export default {
             var url = common.apidomain + '/api/postcomment/' + this.id;
             //2.0 利用ajax的post请求将数据提交到指定的地址
             //2.0.1 获取到用户在文本框中填写的评论内容，通过 content: 内容 格式提交到请求报文体中
-            this.$http.post(url, { content: this.postcontent }, { emulateJSON: true }).then(function (res) {
-                Toast(res.body.message);
+            this.$axios.post(url, qs.stringify({ content: this.postcontent })).then((res)=> {
+                Toast(res.data.message);
 
                 // 3.0 将最新的评论数据追加到评论列表的最顶部
                 this.list = [{
@@ -78,13 +79,13 @@ export default {
             // 1.0 确定评论数据的url
             var url = common.apidomain + '/api/getcomments/' + this.id + '?pageindex=' + pageindex;
             // 2.0 发出ajax请求获取数据即可
-            this.$http.get(url).then(function (res) {
-                if (res.body.status != 0) {
-                    Toast(res.body.message);
+            this.$axios.get(url).then((res)=> {
+                if (res.data.status != 0) {
+                    Toast(res.data.message);
                     return;
                 }
                 // 3.0 将message数组中的数据赋值给this.list
-                this.list = this.list.concat(res.body.message);
+                this.list = this.list.concat(res.data.message);
             });
         },
         // 3.0 实现加载更多的方法
