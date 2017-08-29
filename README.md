@@ -862,3 +862,23 @@
                 // 返回的响应数据在res.data属性中
                 console.log(res.data);
         })
+
+## 集成上拉加载更多
+
+        1. 使用<mt-loadmore></mt-loadmore>组件包裹容器
+
+        // loadTop 下拉刷新方法
+        // loadBottom 上拉加载更多方法
+        // allLoaded 判断数据是否全部加载完毕属性
+        // autoFill 设置false 解决自动执行上拉操作
+        <mt-loadmore :autoFill='false' :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore">
+
+        </mt-loadmore>
+
+        2. 下拉一般加载最新数据,就是获取第一页数据,数据请求回来后需要调用
+        this.$refs.loadmore.onTopLoaded();重置下拉loading位置
+
+        3. 上拉加载更多数据,就是分页功能,数据请求回来之后需要调用
+        this.$refs.loadmore.onBottomLoaded();重置上拉loading位置
+
+        4. 上拉所有数据都加载完毕,设置this.allLoaded = true,禁止上拉效果
