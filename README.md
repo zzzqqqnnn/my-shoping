@@ -855,7 +855,7 @@
                 console.log(res.data);
         })
 
-        // 4 使用axios发送post请求
+        // 5. 使用axios发送post请求
         // post请求(Content-Type:application/x-www-form-urlencoded 时需要配合qs.stringify使用)
         import qs from 'qs';
         this.$axios.post(url,qs.stringify({数据}).then((res)=>{
@@ -882,3 +882,44 @@
         this.$refs.loadmore.onBottomLoaded();重置上拉loading位置
 
         4. 上拉所有数据都加载完毕,设置this.allLoaded = true,禁止上拉效果
+
+## 集成路由过渡动画
+
+        1. 使用transition标签包裹router-view,并在data中定义样式类名transitionName
+
+        <transition :name="transitionName">
+                <router-view></router-view>
+        </transition>
+
+        2. 监听路由变化,判断是使用哪种过渡效果
+
+        '$route': function(to, from) {
+
+                // to 表示将要进入的路由(到哪儿去)
+                // from 表示将要离开的路由(从哪儿来)
+                const toDepth = to.path.split('/').length;
+                const fromDepth = from.path.split('/').length;
+                console.log(to.path,from.path,toDepth, fromDepth);
+
+                // 根据路由深度判断是进入页面还是返回页面
+                // 例如当前页面 路由地址是 /photo/photolist 路由深度就是 3 
+                // 进入 /photo/photoinfo/37 路由深度就是4
+                // 进入页面就使用 slide-left 返回页面就是要slide-right
+                this.transitionName = toDepth < fromDepth ? 'slide-right' : 'slide-left'
+        }
+
+        3. 定义slide-right和slide-left样式类
+
+        .slide-left-enter,.slide-right-leave-active {
+                transition: all 0.2s ease;
+                opacity: 0;
+                -webkit-transform: translate(300px, 0);
+                transform: translate(300px, 0);
+        }
+
+        .slide-left-leave-active,.slide-right-enter {
+                transition: all 0.2s ease;
+                opacity: 0;
+                -webkit-transform: translate(-300px, 0);
+	        transform: translate(-300px, 0); 
+        }
