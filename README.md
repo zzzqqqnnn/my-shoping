@@ -923,3 +923,23 @@
                 -webkit-transform: translate(-300px, 0);
 	        transform: translate(-300px, 0); 
         }
+
+## 路由懒加载
+
+> 功能: 当没有访问到某个页面路由时,不去加载对应的组件代码,节约数据请求量,加快首页DOM渲染速度
+
+        1. 先将项目升级到webpack2以上,相关包也做升级处理,配置文件需要做一些修改,详见代码
+         "webpack": "^3.5.6",
+         "webpack-dev-server": "^2.7.1",
+         "extract-text-webpack-plugin": "^3.0.0",
+
+        2. 安装路由懒加载语法解析器
+
+        `npm install babel-plugin-syntax-dynamic-import --save-dev`
+
+        在babel配置文件中加入:
+        "plugins": ["transform-runtime","syntax-dynamic-import"]
+
+        3. 改变导入组件的方式
+        将import home from './components/Home.vue' 这种导入换成
+        const home = () => import('../components/Home.vue');

@@ -5,74 +5,7 @@ import Vue from 'vue';
 import App from './App.vue';
 
 // 3.0 将vue-router集成到这个项目中来
-import vueRouter from 'vue-router';
-// 3.0.1 将vueRouter对象绑定到Vue对象上
-Vue.use(vueRouter);
-
-// 3.0.2 导入路由规则对应的组件对象
-import home from './components/Home.vue';
-import shopcar from './components/shopcar/car.vue';
-import newslist from './components/news/newslist.vue';
-import newsinfo from './components/news/newsinfo.vue';
-import photolist from './components/photo/photolist.vue';
-import photoinfo from './components/photo/photoinfo.vue';
-import goodslist from './components/goods/goodslist.vue';
-import goodsinfo from './components/goods/goodsinfo.vue';
-import goodsdesc from './components/goods/goodsdesc.vue';
-import goodscomment from './components/goods/goodscomment.vue';
-import car from './components/shopcar/car.vue';
-import login from './components/account/login.vue';
-import userinfo from './components/account/userinfo.vue';
-import setting from './components/setting/setting.vue';
-import map from './components/setting/map.vue';
-
-// 导入获取cookie的方法
-import { getCookie } from './kits/cookie.js';
-
-// 3.0.2 定义路由规则
-var router1 = new vueRouter({
-	linkActiveClass: 'mui-active',  //改变路由激活时的class名称
-	routes: [
-		{ path: '/', redirect: '/home' },// 默认进入home页面(将跟页面重定向到首页home)
-		{ path: '/home', component: home },
-		{ path: '/shopcar', component: shopcar },
-		{ path: '/news/newslist', component: newslist },
-		{ path: '/news/newsinfo/:id', component: newsinfo },
-		{ path: '/photo/photolist', component: photolist },
-		{ path: '/photo/photoinfo/:id', component: photoinfo },
-		{ path: '/goods/goodslist', component: goodslist },
-		{ path: '/goods/goodsinfo/:id', component: goodsinfo },
-		{ path: '/goods/goodsdesc/:id', component: goodsdesc },
-		{ path: '/goods/goodscomment/:id', component: goodscomment },
-		{ path: '/shopcar/car', component: car },
-		{ path: '/setting', component: setting },
-		{ path: '/map', component: map },
-		{ path: '/login', component: login },
-		{
-			path: '/userinfo',
-			component: userinfo,
-			meta: {
-				requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
-			},
-			beforeEnter: (to, from, next) => {
-				if (to.meta.requireAuth) {  // 判断该路由是否需要登录权限
-					if (getCookie('session')) {  // 通过cookie获取当前的token是否存在
-						next();
-					}
-					else {
-						next({
-							path: '/login',
-							query: { redirect: to.fullPath }  // 将跳转的路由path作为参数，登录成功后跳转到该路由
-						})
-					}
-				}
-				else {
-					next();
-				}
-			}
-		}
-	]
-});
+import router from './routers/router.js';
 
 // 导入状态管理vuex
 import Vuex from 'vuex';
@@ -131,9 +64,9 @@ Vue.use(VuePreview);
 new Vue({
 	el: '#app',
 	// 使用路由对象实例
-	router: router1,
+	router,
 	// 使用vuex
 	store,
-	// render:function(create){create(App)} //es5的写法
+	// render:function(create){return create(App)} //es5的写法
 	render: c => c(App)  // es6的函数写法 =>：goes to
 });

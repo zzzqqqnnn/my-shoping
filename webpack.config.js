@@ -20,8 +20,11 @@ module.exports = {
   module: {
     loaders: [
       {
-        test: /\.css$/,  //打包 .css文件
-        loader: ExtractTextPlugin.extract("style-loader", "css-loader")
+        test: /\.css$/,
+        use: ExtractTextPlugin.extract({
+          fallback: "style-loader",
+          use: "css-loader"
+        })
       },
       {
         test: /\.scss$/,  //打包 .scss文件
@@ -30,8 +33,7 @@ module.exports = {
       {
         test: /\.less/,  //打包 .less文件
         loader: 'style-loader!css-loader!less-loader'
-      }
-      ,
+      },
       {
         test: /\.(png|jpg|gif|ttf|svg)$/,  //打包 url请求的资源文件
         loader: 'url-loader?limit=20000' //limit表示图片的大小为20K是临界值，小于20K的图片均被打包到build.js中去，请求图片就会很快
@@ -51,16 +53,12 @@ module.exports = {
       }
     ]
   },
-  babel: {
-    presets: ['es2015'],  // 配置将es6语法转换成es5语法
-    plugins: ['transform-runtime']
-  },
   plugins: [
     // 自动生成HTML页面
     new htmlwp({
       title: '首页',  //生成的页面标题<head><title>首页</title></head>
       filename: 'index.html', //webpack-dev-server在内存中生成的文件名称，自动将build注入到这个页面底部，才能实现自动刷新功能
-      template: 'template.html', //根据index1.html这个模板来生成(这个文件请程序员自己生成)
+      template: 'template.html',//根据index1.html这个模板来生成(这个文件请程序员自己生成)
       minify: {
         // 删除注释
         removeComments: true,
@@ -77,20 +75,6 @@ module.exports = {
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendors', // 根据入口文件中vendors分离对应的第三方包
       filename: 'vendors.js' // 生成一个vendor.js文件
-    }),
-
-    // js代码压缩
-    new webpack.optimize.UglifyJsPlugin({
-      beautify: false,
-      mangle: {
-        screw_ie8: true,
-        keep_fnames: true
-      },
-      compress: {
-        warnings: false,
-        screw_ie8: true
-      },
-      comments: false
     }),
 
     // 删除警告
