@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #vue_system
 
 ## 项目基本结构搭建和环境配置
@@ -943,3 +944,6 @@
         3. 改变导入组件的方式
         将import home from './components/Home.vue' 这种导入换成
         const home = () => import('../components/Home.vue');
+=======
+# my-shoping
+>>>>>>> e2ef6c110989d032dbdadf05094d4b7e39b69428
