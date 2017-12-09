@@ -2,7 +2,7 @@
 <template>
 	<div>
 		<!-- 1.0 利用mint-ui中的header组件实现整个系统的头部 -->
-		<mt-header fixed title="传智播客.黑马程序员Vue商城系统"></mt-header>
+		<mt-header fixed title="我的商城"></mt-header>
 		<!--1.0.1 统一的返回按钮-->
 		<div v-if="isshow" id="back">
 			<a href="javascript:void(0)" @click="backto">返回</a>

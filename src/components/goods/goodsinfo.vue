@@ -120,7 +120,10 @@
 						Toast(body.message);
 						return;
 					}
-				    this.imgs =res.body.message;
+					this.imgs =res.body.message;
+					for(var i=0;i<this.imgs.length;i++){
+						this.imgs[i].img=this.imgs[i].src
+					}
 				});
 			},
 			// 实现动画出现的方法

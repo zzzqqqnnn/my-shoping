@@ -87,7 +87,7 @@ export default {
 }
 
 </script>
-</script>
+
 <style scoped>
 #mui-content li {
 	border: 1px solid rgba(0, 0, 0, 0.4);
